@@ -1,0 +1,11 @@
+10:36:46.687 [main] INFO  com.elearn.ta.tests.TC001_LoginWithEpamAccount - Running tests LOCALLY with setup: chrome
+10:36:52.266 [main] INFO  com.elearn.ta.tests.TC001_LoginWithEpamAccount - Driver removed
+10:36:53.708 [main] INFO  com.elearn.ta.tests.TC003_LogoutFromEpamAccount - Running tests LOCALLY with setup: chrome
+10:37:01.706 [main] INFO  com.elearn.ta.tests.TC003_LogoutFromEpamAccount - Driver removed
+19:56:59.238 [main] INFO  com.elearn.ta.tests.TC002_RepeatBookingFromCompleted - Running tests LOCALLY with setup: chrome
+19:58:56.807 [main] INFO  com.elearn.ta.tests.TC002_RepeatBookingFromCompleted - Running tests LOCALLY with setup: chrome
+19:59:39.308 [main] INFO  com.elearn.ta.tests.TC002_RepeatBookingFromCompleted - Driver removed
+19:59:53.096 [main] INFO  com.elearn.ta.tests.TC002_RepeatBookingFromCompleted - Running tests LOCALLY with setup: chrome
+20:01:20.601 [main] INFO  com.elearn.ta.tests.TC005_KeyPressTest - Running tests LOCALLY with setup: chrome
+20:01:23.017 [main] INFO  com.elearn.ta.tests.TC005_KeyPressTest - Driver removed
+20:05:59.567 [main] INFO  com.elearn.ta.tests.TC005_KeyPressTest - Running tests LOCALLY with setup: chrome
