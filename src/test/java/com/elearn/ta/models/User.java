@@ -1,16 +1,18 @@
 package com.elearn.ta.models;
 
-
 public class User {
-    private static final String username = "Regina_Hernandez1@epam.com";
-    private static final String password = "111111";
+    private String username;
+    private String password;
 
-
-    public static String getUsername() {
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+    public String getUsername() {
         return username;
     }
 
-    public static String getPassword() {
+    public String getPassword() {
         return password;
     }
 }

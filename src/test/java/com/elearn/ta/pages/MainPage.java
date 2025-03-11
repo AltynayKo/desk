@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class MainPage extends BasePage{
     @FindBy(name ="username")
     private WebElement usernameInput;
@@ -24,11 +26,11 @@ public class MainPage extends BasePage{
     private WebElement moreOptionsBtn;
     @FindBy(xpath = "//span[normalize-space()='Repeat']")
     private WebElement repeatOption;
-    @FindBy(xpath = "//button[@class='uui-button-box uui-enabled -clickable KIwLfu VJ63bY uui-button uui-fill-solid uui-color-green uui-size-36']")
+    @FindBy(xpath = "//button[@class='uui-button-box uui-enabled -clickable KIwLfu VJ63bY uui-button uui-fill-solid uui-color-green uui-size-36']") //button[contains(@class, 'uui-fill-solid') and contains(@class, 'uui-color-green')]")
     private WebElement createBtn;
     @FindBy(xpath = "//span[normalize-space()='Cancel']")
     private WebElement cancelOption;
-    @FindBy (className = "step-modal-content")
+    @FindBy (className = "uui-modal-window")
     private WebElement stepModalContent;
     @FindBy(xpath = "//*[text()='Book new']/parent::*")
     private WebElement bookNewBtn;
@@ -43,40 +45,48 @@ public class MainPage extends BasePage{
     @FindBy(xpath = "//img[@alt='Main Menu Logo']")
     private WebElement logo;
 
+
+
+    @FindBy(xpath = "//b[contains(text(), 'Type')]/following-sibling::*")
+    private WebElement typeDropdown;
+    @FindBy(xpath = "//div[@role='option']")
+    private List<WebElement> typeDropdownOptions;
+
+
     public MainPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    @Override
-    BasePage openPage() {
+    public MainPage loginWithEpamAccount(User user){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+        usernameInput.sendKeys(user.getUsername());
+        passwordInput.sendKeys(user.getPassword());
+        continueBtn.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("home")));
         return this;
     }
-    public MainPage loginWithEpamAccount(){
+    public ActionsMainPage loginWithEpamAccountActPage(User user){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-        usernameInput.sendKeys(User.getUsername());
-        passwordInput.sendKeys(User.getPassword());
+        usernameInput.sendKeys(user.getUsername());
+        passwordInput.sendKeys(user.getPassword());
         continueBtn.click();
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-            .until(ExpectedConditions.visibilityOfElementLocated(By.className("desk-nav-logo")));
-        return this;
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("home")));
+        return new ActionsMainPage(driver);
     }
     public MainPage repeatBookingPlace(){
         completedTab.click();
         moreOptionsBtn.click();
         repeatOption.click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), 'Create')]/parent::*")));
-        createBtn.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'uui-fill-solid') and contains(@class, 'uui-color-green')]")));
+        if (createBtn.isDisplayed()){
+            createBtn.click();
+        }
         if (stepModalContent.isDisplayed()){
             bookNewBtn.click();
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("uui-snackbar-item-self")));
         return this;
-    }
-    public void cancelBooking(){
-        activeTab.click();
-        moreOptionsBtn.click();
-        cancelOption.click();
     }
     public PromoPage logOut(){
         narrowBtn.click();
