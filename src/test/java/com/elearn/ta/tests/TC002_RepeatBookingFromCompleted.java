@@ -1,16 +1,18 @@
 package com.elearn.ta.tests;
 
 import com.elearn.ta.pages.MainPage;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TC002_RepeatBookingFromCompleted extends BaseTestClass {
 
-    @Test
+    @Test(description = "Verify the ability to repeat previous booking from Completed tab")
     public void oneCanRepeatBookingPlace() {
-        MainPage actualResult = new MainPage(driver)
-                .loginWithEpamAccount()
-                .repeatBookingPlace();
-        Assert.assertEquals(actualResult.getToastMessage(), "The reservation has been created successfully");
+        String messageBlockAfterRepeat = new MainPage(driver.get())
+                .loginWithEpamAccount(currentUser)
+                .repeatBookingPlace()
+                .getToastMessage();
+        assertThat(messageBlockAfterRepeat, is(equalTo("The reservation has been created successfully")));
     }
 }

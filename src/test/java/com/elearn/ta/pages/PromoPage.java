@@ -15,7 +15,6 @@ public class PromoPage extends BasePage{
         PageFactory.initElements(driver, this);
     }
 
-    @Override
     public PromoPage openPage() {
         driver.navigate().to(PAGE_URL);
         return this;

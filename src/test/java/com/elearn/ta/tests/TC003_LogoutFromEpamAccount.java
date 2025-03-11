@@ -1,18 +1,20 @@
 package com.elearn.ta.tests;
 
 import com.elearn.ta.pages.MainPage;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TC003_LogoutFromEpamAccount extends BaseTestClass{
+    private String PROMO_PAGE_URL = "https://access.epam.com/auth/realms/plusx/protocol/openid-connect/logout?redirect_uri=https://desk.epam.com/promo";
 
     @Test
     public void oneCanLogOut(){
-        String actualResult = new MainPage(driver)
-                .loginWithEpamAccount()
+        String actualPageUrl = new MainPage(driver.get())
+                .loginWithEpamAccount(currentUser)
                 .logOut()
                 .openPage()
                 .getCurrentPageUrl();
-        Assert.assertTrue(actualResult.contains("https://access.epam.com/auth"));
+        assertThat(actualPageUrl, is(equalTo(PROMO_PAGE_URL)));
     }
 }
