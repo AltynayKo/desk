@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Crossbrowser and platform test" parallel="tests">
-	<test name="All test run in Linux with Firefox">
-		<parameter name="os" value="linux"/>
+	<test name="test run in Windows with Firefox">
+		<parameter name="os" value="windows"/>
 		<parameter name="browser" value="firefox"/>
 		<classes>
-			<class name="com.elearn.ta.tests.TC003_LogoutFromEpamAccount"/>
+			<class name="com.elearn.ta.tests.TC005_KeyPressTest"/>
 		</classes>
 	</test>
-	<test name="All test run in Windows with Chrome">
+	<test name="test run in Windows with Chrome">
 		<parameter name="os" value="windows"/>
 		<parameter name="browser" value="chrome"/>
 		<classes>

@@ -48,7 +48,7 @@ public class BaseTestClass {
             switch (br.toLowerCase()) {
                 case "chrome": capabilities.setBrowserName("chrome"); break;
                 case "edge": capabilities.setBrowserName("MicrosoftEdge"); break;
-                case "firefox": capabilities.setBrowserName("Firefox"); break;
+                case "firefox": capabilities.setBrowserName("firefox"); break;
                 default: System.out.println("Browser is not found"); return;
             }
             driver.set(new RemoteWebDriver(new URL("http://localhost:4444"), capabilities));
