@@ -79,9 +79,7 @@ public class MainPage extends BasePage{
         moreOptionsBtn.click();
         repeatOption.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'uui-fill-solid') and contains(@class, 'uui-color-green')]")));
-        if (createBtn.isDisplayed()){
-            createBtn.click();
-        }
+        clickButtonUsingJS(createBtn);
         if (stepModalContent.isDisplayed()){
             bookNewBtn.click();
         }
@@ -99,5 +97,8 @@ public class MainPage extends BasePage{
     }
     public String getToastMessage(){
         return toastElement.getText();
+    }
+    public void clickButtonUsingJS(WebElement clickElement) {
+        jsExecutor.executeScript("arguments[0].click();", clickElement);
     }
 }
