@@ -1,6 +1,7 @@
-package com.elearn.ta.service;
+package helper;
 
-import com.elearn.ta.models.User;
+import helper.TestDataReader;
+import model.User;
 
 public class UserCreator {
     public static final String USERNAME = "username";

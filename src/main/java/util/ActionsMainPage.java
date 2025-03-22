@@ -1,4 +1,4 @@
-package com.elearn.ta.pages;
+package util;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -8,10 +8,11 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import page.BasePage;
 
 import static org.openqa.selenium.Keys.ENTER;
 
-public class ActionsMainPage extends BasePage{
+public class ActionsMainPage extends BasePage {
     private Actions actions;
 
     @FindBy(xpath = "//*[text()='Add favorite places']")

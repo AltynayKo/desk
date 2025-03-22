@@ -1,6 +1,6 @@
 package com.elearn.ta.tests;
 
-import com.elearn.ta.pages.MainPage;
+import page.home.HomePage;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.is;
 public class TC004_HoverOverButtonsTest extends BaseTestClass{
     @Test(description = "Verify that hint text appears for Add Colleagues button")
     public void hoverTextDisplayedForButton(){
-        String actualBtnHoverText = new MainPage(driver.get())
+        String actualBtnHoverText = new HomePage(driver.get())
                 .loginWithEpamAccountActPage(currentUser)
                 .hoverOverAddColleaguesBtn()
                 .getHoverOverBtnText();

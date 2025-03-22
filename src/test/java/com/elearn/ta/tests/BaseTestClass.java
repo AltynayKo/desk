@@ -1,6 +1,6 @@
 package com.elearn.ta.tests;
 
-import com.elearn.ta.models.User;
+import model.User;
 import com.elearn.ta.utils.TestListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,4 +1,4 @@
-package com.elearn.ta.pages;
+package page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -6,7 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import java.time.Duration;
 
-abstract class BasePage {
+public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected JavascriptExecutor jsExecutor;

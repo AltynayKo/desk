@@ -1,11 +1,12 @@
-package com.elearn.ta.pages;
+package page.promo;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import page.BasePage;
 
-public class PromoPage extends BasePage{
+public class PromoPage extends BasePage {
 
     private static final String PAGE_URL = "https://access.epam.com/auth/realms/plusx/protocol/openid-connect/logout?redirect_uri=https://desk.epam.com/promo";
     @FindBy(xpath = "//input[@value='Logout']")

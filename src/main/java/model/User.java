@@ -1,4 +1,4 @@
-package com.elearn.ta.models;
+package model;
 
 public class User {
     private String username;

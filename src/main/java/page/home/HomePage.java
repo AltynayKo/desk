@@ -1,17 +1,19 @@
-package com.elearn.ta.pages;
+package page.home;
 
-import com.elearn.ta.models.User;
+import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import util.ActionsMainPage;
+import page.BasePage;
+import page.promo.PromoPage;
 
 import java.util.List;
 
-public class MainPage extends BasePage{
+public class HomePage extends BasePage {
     @FindBy(name ="username")
     private WebElement usernameInput;
     @FindBy(name ="password")
@@ -53,12 +55,12 @@ public class MainPage extends BasePage{
     private List<WebElement> typeDropdownOptions;
 
 
-    public MainPage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public MainPage loginWithEpamAccount(User user){
+    public HomePage loginWithEpamAccount(User user){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
         usernameInput.sendKeys(user.getUsername());
         passwordInput.sendKeys(user.getPassword());
@@ -74,7 +76,7 @@ public class MainPage extends BasePage{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("home")));
         return new ActionsMainPage(driver);
     }
-    public MainPage repeatBookingPlace(){
+    public HomePage repeatBookingPlace(){
         completedTab.click();
         moreOptionsBtn.click();
         repeatOption.click();
