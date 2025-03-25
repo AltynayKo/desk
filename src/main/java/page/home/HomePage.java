@@ -1,39 +1,37 @@
 package page.home;
 
-import model.User;
-import org.openqa.selenium.By;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import util.ActionsMainPage;
 import page.BasePage;
-import page.promo.PromoPage;
 
-import java.util.List;
 
+@Getter
 public class HomePage extends BasePage {
-    @FindBy(name ="username")
-    private WebElement usernameInput;
-    @FindBy(name ="password")
-    private WebElement passwordInput;
+    public HomePage(WebDriver driver){
+        super(driver);
+    }
+    @FindBy(xpath ="//input[@id='username']")
+    public WebElement usernameInput;
+    @FindBy(xpath ="//input[@id='password']")
+    public WebElement passwordInput;
     @FindBy(xpath = "//input[@id='kc-login' and @type='submit']")
-    private WebElement continueBtn;
+    public WebElement continueBtn;
     @FindBy(xpath = "//*[text()='Completed']/parent::*")
-    private WebElement completedTab;
+    public WebElement completedTab;
     @FindBy(xpath = "//*[contains(text(), 'Active')]/parent::*")
     private WebElement activeTab;
     @FindBy(css = ".table-actions-toggle")
-    private WebElement moreOptionsBtn;
+    public WebElement moreOptionsBtn;
     @FindBy(xpath = "//span[normalize-space()='Repeat']")
-    private WebElement repeatOption;
+    public WebElement repeatOption;
     @FindBy(xpath = "//button[@class='uui-button-box uui-enabled -clickable KIwLfu VJ63bY uui-button uui-fill-solid uui-color-green uui-size-36']") //button[contains(@class, 'uui-fill-solid') and contains(@class, 'uui-color-green')]")
-    private WebElement createBtn;
+    public WebElement createBtn;
     @FindBy(xpath = "//span[normalize-space()='Cancel']")
     private WebElement cancelOption;
     @FindBy (className = "uui-modal-window")
-    private WebElement stepModalContent;
+    public WebElement stepModalContent;
     @FindBy(xpath = "//*[text()='Book new']/parent::*")
     private WebElement bookNewBtn;
     @FindBy(css = ".uui-snackbar-item-self")
@@ -46,61 +44,21 @@ public class HomePage extends BasePage {
     private WebElement loggingOutBlock;
     @FindBy(xpath = "//img[@alt='Main Menu Logo']")
     private WebElement logo;
-
-
-
     @FindBy(xpath = "//b[contains(text(), 'Type')]/following-sibling::*")
     private WebElement typeDropdown;
-    @FindBy(xpath = "//div[@role='option']")
-    private List<WebElement> typeDropdownOptions;
+    @FindBy(xpath = "//div[contains(@class, 'uui-dropdown-body')]")
+    private WebElement searchOption;
 
 
-    public HomePage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
-    }
+    //---------------FOR ACTIONS---------------------//
 
-    public HomePage loginWithEpamAccount(User user){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-        usernameInput.sendKeys(user.getUsername());
-        passwordInput.sendKeys(user.getPassword());
-        continueBtn.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("home")));
-        return this;
-    }
-    public ActionsMainPage loginWithEpamAccountActPage(User user){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-        usernameInput.sendKeys(user.getUsername());
-        passwordInput.sendKeys(user.getPassword());
-        continueBtn.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("home")));
-        return new ActionsMainPage(driver);
-    }
-    public HomePage repeatBookingPlace(){
-        completedTab.click();
-        moreOptionsBtn.click();
-        repeatOption.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'uui-fill-solid') and contains(@class, 'uui-color-green')]")));
-        clickButtonUsingJS(createBtn);
-        if (stepModalContent.isDisplayed()){
-            bookNewBtn.click();
-        }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("uui-snackbar-item-self")));
-        return this;
-    }
-    public PromoPage logOut(){
-        narrowBtn.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("uui-dropdown-body")));
-        logOutLink.click();
-        return new PromoPage(this.driver);
-    }
-    public boolean isLogoDisplayed(){
-        return logo.isDisplayed();
-    }
-    public String getToastMessage(){
-        return toastElement.getText();
-    }
-    public void clickButtonUsingJS(WebElement clickElement) {
-        jsExecutor.executeScript("arguments[0].click();", clickElement);
-    }
+    @FindBy(xpath = "//*[text()='Add favorite places']")
+    private WebElement addColleaguesBtn;
+    @FindBy(xpath = "//input[@placeholder='Search people']")
+    private WebElement searchPeopleInput;
+    @FindBy(xpath = "//div[contains(@class, 'uui-dropdown-body')]")
+    private WebElement peopleSearchResultBlock;
+    @FindBy(xpath = "//div[@class='uui-tooltip-body']")
+    private WebElement textOverHoverBtn;
+
 }

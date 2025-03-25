@@ -2,6 +2,10 @@ package com.elearn.ta.tests;
 
 import page.home.HomePage;
 import org.testng.annotations.Test;
+import service.home.HomePageService;
+
+import static com.elearn.ta.driver.DriverSingleton.driver;
+import static com.elearn.ta.driver.DriverSingleton.getDriver;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -10,11 +14,10 @@ public class TC003_LogoutFromEpamAccount extends BaseTestClass{
 
     @Test
     public void oneCanLogOut(){
-        String actualPageUrl = new HomePage(driver.get())
+        String actualPageUrl = new HomePageService(getDriver())
                 .loginWithEpamAccount(currentUser)
                 .logOut()
-                .openPage()
-                .getCurrentPageUrl();
+                        .getPageUrl();
         assertThat(actualPageUrl, is(equalTo(PROMO_PAGE_URL)));
     }
 }
