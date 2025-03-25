@@ -1,7 +1,6 @@
 package com.elearn.ta.tests;
 
 import model.api.Users;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
@@ -15,15 +14,19 @@ public class TC006_ApiTest{
 
     @Test
     public void verifyResponseStatusCodeIs200(){
-        int actualStatusCode = given().when().get(API_URL)
-                .statusCode();
-        assertThat(actualStatusCode, is(200));
+        given()
+                .when()
+                .get(API_URL)
+                .then()
+                .assertThat()
+                .statusCode(200);
     }
     @Test
     public void verifyResponseHeader(){
-        String actualContentType = given().when().get(API_URL)
-                .getContentType();
-        assertThat(actualContentType, equalTo("application/json; charset=utf-8"));
+        given().when().get(API_URL)
+                .then()
+                .assertThat()
+                .contentType(equalTo("application/json; charset=utf-8"));
     }
 
     @Test
@@ -32,7 +35,7 @@ public class TC006_ApiTest{
                 .when()
                 .get(API_URL)
                 .then()
-                .log().all().extract()
+                .extract()
                 .body().jsonPath()
                 .getList("users", Users.class);
         assertThat(getUsers.size(), greaterThanOrEqualTo(10));
