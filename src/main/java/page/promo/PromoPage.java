@@ -1,26 +1,20 @@
 package page.promo;
 
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
 import page.BasePage;
 
+@Getter
 public class PromoPage extends BasePage {
 
-    private static final String PAGE_URL = "https://access.epam.com/auth/realms/plusx/protocol/openid-connect/logout?redirect_uri=https://desk.epam.com/promo";
+    private static final String PAGE_URL = "https://access.epam.com/auth/realms/plusx/protocol/openid-connect/logout";
     @FindBy(xpath = "//input[@value='Logout']")
     private WebElement logOutBtn;
+
     public PromoPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
-    }
-
-    public PromoPage openPage() {
-        driver.navigate().to(PAGE_URL);
-        return this;
-    }
-    public String getCurrentPageUrl(){
-        return driver.getCurrentUrl();
     }
 }

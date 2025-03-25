@@ -1,76 +1,42 @@
 package com.elearn.ta.tests;
 
+import com.elearn.ta.driver.DriverSingleton;
+import com.elearn.ta.util.ConfigReader;
 import model.User;
-import com.elearn.ta.utils.TestListener;
+import com.elearn.ta.util.TestListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Properties;
+
+import static com.elearn.ta.driver.DriverSingleton.driver;
+import static com.elearn.ta.driver.DriverSingleton.getDriver;
 
 @Listeners(TestListener.class)
 public class BaseTestClass {
-    public static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    public Properties properties;
     public Logger logger;
     public User currentUser;
     @BeforeClass
     @Parameters({"os", "browser"})
-    public void setUp(String os, String br) throws IOException {
-
-        //loading config.properties file
-        FileReader file = new FileReader("./src//test//resources//config.properties");
-        properties = new Properties();
-        properties.load(file);
-
+    public void setUp(String os, String browser) throws IOException {
+        ConfigReader.loadProperties();
         logger = LogManager.getLogger(this.getClass());
+        currentUser = ConfigReader.getUserData();
 
-        currentUser = new User(properties.getProperty("username"), properties.getProperty("password"));
-
-        if (properties.getProperty("execution_env").equalsIgnoreCase("remote")) {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            switch (os.toLowerCase()){
-                case "windows": capabilities.setPlatform(Platform.WIN11); break;
-                case "mac": capabilities.setPlatform(Platform.MAC); break;
-                case "linux": capabilities.setPlatform(Platform.LINUX); break;
-                default: System.out.println("Platform is not found"); return;
-            }
-            switch (br.toLowerCase()) {
-                case "chrome": capabilities.setBrowserName("chrome"); break;
-                case "edge": capabilities.setBrowserName("MicrosoftEdge"); break;
-                case "firefox": capabilities.setBrowserName("firefox"); break;
-                default: System.out.println("Browser is not found"); return;
-            }
-            driver.set(new RemoteWebDriver(new URL("http://localhost:4444"), capabilities));
-            logger.info("Running tests in REMOTE with setup: " + capabilities.getBrowserName() + ", " + capabilities.getPlatformName());
-        }
-        else if(properties.getProperty("execution_env").equalsIgnoreCase("local")) {
-            switch (br.toLowerCase()) {
-                case "chrome": driver.set(new ChromeDriver()); break;
-                case "edge": driver.set(new EdgeDriver()); break;
-                default: driver.set(new FirefoxDriver());
-            }
-            logger.info("Running tests LOCALLY with setup: " + br);
+        if (ConfigReader.getExecutionEnvironment().equalsIgnoreCase("remote")) {
+            DriverSingleton.getRemoteDriver(os, browser);
+            logger.info("Running tests in REMOTE on {} with {}", os, browser);
         } else {
-            logger.error("Error while reading run environment/platform/browser");
+            DriverSingleton.getLocalDriver(browser);
+            logger.info("Running tests LOCALLY with setup with {}:", browser);
         }
-        driver.get().get(properties.getProperty("url"));
+        getDriver().get(ConfigReader.getBaseUrl());
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDown(){
-        driver.get().close();
-        driver.remove();
+        DriverSingleton.closeDriver();
         logger.info("Driver removed");
     }
 }

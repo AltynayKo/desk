@@ -1,5 +1,6 @@
-package com.elearn.ta.utils;
+package com.elearn.ta.util;
 
+import com.elearn.ta.driver.DriverSingleton;
 import com.elearn.ta.tests.BaseTestClass;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +24,7 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
         saveScreenshot();
     }
     private void saveScreenshot() {
-        File screenCapture = ((TakesScreenshot) BaseTestClass.driver.get())
+        File screenCapture = ((TakesScreenshot) DriverSingleton.driver.get())
                 .getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenCapture, new File(
