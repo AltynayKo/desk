@@ -5,8 +5,8 @@
 		<parameter name="browser" value="chrome"/>
 		<parameter name="os" value=""/>
 		<classes>
-			<!--<class name="com.elearn.ta.tests.TC004_HoverOverButtonsTest"/>-->
-			<!--<class name="com.elearn.ta.tests.TC005_KeyPressTest"/>-->
+			<class name="com.elearn.ta.tests.TC004_HoverOverButtonsTest"/>
+			<class name="com.elearn.ta.tests.TC005_KeyPressTest"/>
 			<class name="com.elearn.ta.tests.TC006_ApiTest"/>
 		</classes>
 	</test>
