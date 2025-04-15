@@ -21,15 +21,15 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
     private static final String DELIMITER = "=========================================================================";
     private final Logger log = LogManager.getRootLogger();
     public void onTestFailure(ITestResult iTestResult){
-        log.info("{} {}", "Start executing", iTestResult.getTestName());
+        log.info("{} {}", "Test method is failed", iTestResult.getMethod());
         saveScreenshot();
     }
     private void saveScreenshot() {
-        File screenCapture = ((TakesScreenshot) DriverSingleton.getDriver())
+        File screenCapture = ((TakesScreenshot) DriverSingleton.driver.get())
                 .getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenCapture, new File(
-                    "//target/screenshots/"
+                    "target/screenshots/"
                     + getCurrentTimeAsString() + ".png"));
         } catch (IOException e){
             log.error("Failed to save screenshot: " + e.getLocalizedMessage());
