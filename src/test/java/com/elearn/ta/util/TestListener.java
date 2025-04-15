@@ -1,7 +1,6 @@
 package com.elearn.ta.util;
 
 import com.elearn.ta.driver.DriverSingleton;
-import com.elearn.ta.tests.BaseTestClass;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +10,7 @@ import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import io.qameta.allure.Attachment;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
     private final Logger log = LogManager.getRootLogger();
     public void onTestFailure(ITestResult iTestResult){
         log.info("{} {}", "Test method is failed", iTestResult.getMethod());
-        saveScreenshot();
+        captureScreenshotAllure();
     }
     private void saveScreenshot() {
         File screenCapture = ((TakesScreenshot) DriverSingleton.driver.get())
@@ -34,6 +34,12 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
         } catch (IOException e){
             log.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }
+    }
+
+    @Attachment(value = "Screenshot", type = "image/png")
+    public static byte[] captureScreenshotAllure() {
+        return ((TakesScreenshot) DriverSingleton.driver.get())
+                .getScreenshotAs(OutputType.BYTES);
     }
 
     private String getCurrentTimeAsString(){
