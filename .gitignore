@@ -41,3 +41,5 @@ build/
 /com/elearn/ta/service/
 /src/test/resources/dev.properties
 /src/test/resources/prod.properties
+/agent.jar
+/secret-file
