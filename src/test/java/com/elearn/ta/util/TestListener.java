@@ -21,6 +21,7 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
     private static final String DELIMITER = "=========================================================================";
     private final Logger log = LogManager.getRootLogger();
     public void onTestFailure(ITestResult iTestResult){
+        log.info("{} {}", "Start executing", iTestResult.getTestName());
         saveScreenshot();
     }
     private void saveScreenshot() {
